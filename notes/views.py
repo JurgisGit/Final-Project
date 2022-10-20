@@ -14,3 +14,37 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+
+    template = loader.get_template('login.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
+
+def signup(request):
+    if request.method == "POST":
+        # pasiimame reikšmes iš registracijos formos
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        password2 = request.POST['password2']
+        User.objects.create_user(username, email, password)
+        return redirect('index')
+    elif request.method == "GET":
+        template = loader.get_template('signup.html')
+        context = {}
+        return HttpResponse(template.render(context, request))
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('index')
+
+
