@@ -11,6 +11,7 @@ class Note(models.Model):
         on_delete=models.CASCADE,
         null=True,
     )
+    label = models.ForeignKey('Label', on_delete=models.SET_NULL, null=True)
 
 
 class Label(models.Model):

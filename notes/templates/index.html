@@ -12,6 +12,7 @@
       <th scope="col">#</th>
       <th scope="col">Note</th>
       <th scope="col">Text</th>
+      <th scope="col">Label</th>
       <th scope="col"></th>
       <th scope="col"></th>
     </tr>
@@ -23,6 +24,7 @@
       <th scope="row">{{ forloop.counter }}</th>
       <td>{{note.title}}</td>
       <td>{{note.text}}</td>
+      <td>{{note.label.title}}</td>
       <td><button type="submit" class="btn btn-info">Edit</button></td>
       <td><button type="submit" class="btn btn-danger">Delete</button></td>
     </tr>
