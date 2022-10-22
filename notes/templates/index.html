@@ -2,7 +2,26 @@
 
 {% block content %}
   <h1>Take a Note</h1>
-  <p>Contents</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Note</th>
+      <th scope="col">Text</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  {% for note in notes %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{note.title}}</td>
+      <td>{{note.text}}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
 
 
 {% endblock %}
