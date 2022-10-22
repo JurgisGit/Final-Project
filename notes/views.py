@@ -57,3 +57,9 @@ def label(request):
     return HttpResponse(template.render(context, request))
 
 
+def label_notes(request, label_id):
+    template = loader.get_template('label_notes.html')
+    context = {'notes': Note.objects.filter(label__id=label_id, user=request.user)}
+    return HttpResponse(template.render(context, request))
+
+

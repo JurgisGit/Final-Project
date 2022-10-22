@@ -22,7 +22,7 @@
   {% for label in labels %}
     <tr>
       <th scope="row">{{ forloop.counter }}</th>
-      <td>{{label.title}}</td>
+      <td> <a href="{% url 'label_notes' label_id=label.id %}">{{label.title}}</a></td>
       <td><button type="submit" class="btn btn-info">Edit</button></td>
       <td><button type="submit" class="btn btn-danger">Delete</button></td>
     </tr>
