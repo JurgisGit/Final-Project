@@ -1,28 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Take a Note</h1>
+  <h1>Labels</h1>
 
 
-<button type="submit" class="btn btn-success btn-lg btn-block add_button">Add a note</button>
+<button type="submit" class="btn btn-success btn-lg btn-block add_button">Add a label</button>
+
 
 <table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Note</th>
-      <th scope="col">Text</th>
+      <th scope="col">Label</th>
+      <th scope="col"></th>
       <th scope="col"></th>
       <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
 
-  {% for note in notes %}
+  {% for label in labels %}
     <tr>
       <th scope="row">{{ forloop.counter }}</th>
-      <td>{{note.title}}</td>
-      <td>{{note.text}}</td>
+      <td>{{label.title}}</td>
       <td><button type="submit" class="btn btn-info">Edit</button></td>
       <td><button type="submit" class="btn btn-danger">Delete</button></td>
     </tr>

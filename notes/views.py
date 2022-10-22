@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template import loader
-from .models import Note
+from .models import Note, Label
 from django.contrib.auth.forms import User
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
@@ -49,5 +49,11 @@ def signup(request):
 def logout_user(request):
     logout(request)
     return redirect('index')
+
+
+def label(request):
+    template = loader.get_template('labels.html')
+    context = {'labels': Label.objects.filter(user=request.user)}
+    return HttpResponse(template.render(context, request))
 
 
