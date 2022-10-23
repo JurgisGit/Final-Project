@@ -18,7 +18,7 @@
             </div>
             <div class="form-group">
                 <select value="{{ note.label.id }}" class="custom-select" name="notelabel">
-                  <option>Select Label for your Note</option>
+                  <option value="null">Select Label for your Note</option>
                     {% for label in labels %}
                         <option {% if label.id == note.label.id %} selected {% endif %} value="{{ label.id }}">{{ label.title }}</option>
                     {% endfor %}

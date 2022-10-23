@@ -51,6 +51,8 @@ def create_note(request):
         notename = request.POST['notename']
         notetext = request.POST['notetext']
         notelabel = request.POST['notelabel']
+        if notelabel == 'null':
+            notelabel = None
         # label = Label.objects.find(notelabel)
         Note.objects.create(title=notename, text=notetext, user=request.user, label_id=notelabel)
         return redirect('index')
@@ -82,6 +84,8 @@ def edit_note(request, note_id):
         notename = request.POST['notename']
         notetext = request.POST['notetext']
         notelabel = request.POST['notelabel']
+        if notelabel == 'null':
+            notelabel = None
         note = Note.objects.get(id=note_id)
         note.title = notename
         note.text = notetext
@@ -92,5 +96,11 @@ def edit_note(request, note_id):
         template = loader.get_template('edit_note.html')
         context = {'labels': Label.objects.filter(user=request.user), 'note': Note.objects.get(id=note_id)}
         return HttpResponse(template.render(context, request))
+
+
+def delete_note(request, note_id):
+    note = Note.objects.get(id=note_id)
+    note.delete()
+    return redirect('index')
 
 
