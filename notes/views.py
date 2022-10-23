@@ -46,6 +46,20 @@ def signup(request):
         return HttpResponse(template.render(context, request))
 
 
+def create_note(request):
+    if request.method == "POST":
+        notename = request.POST['notename']
+        notetext = request.POST['notetext']
+        notelabel = request.POST['notelabel']
+        # label = Label.objects.find(notelabel)
+        Note.objects.create(title=notename, text=notetext, user=request.user, label_id=notelabel)
+        return redirect('index')
+    elif request.method == "GET":
+        template = loader.get_template('create_note.html')
+        context = {'labels': Label.objects.filter(user=request.user)}
+        return HttpResponse(template.render(context, request))
+
+
 def logout_user(request):
     logout(request)
     return redirect('index')

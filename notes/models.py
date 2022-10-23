@@ -13,6 +13,9 @@ class Note(models.Model):
     )
     label = models.ForeignKey('Label', on_delete=models.SET_NULL, null=True)
 
+    def __str__(self):
+        return self.title
+
 
 class Label(models.Model):
     title = models.CharField(max_length=200)
@@ -21,3 +24,6 @@ class Label(models.Model):
         on_delete=models.CASCADE,
         null=True,
     )
+
+    def __str__(self):
+        return self.title
