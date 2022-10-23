@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container">
+        <h3>Edit a Note</h3><br/>
+        <form action="{% url 'edit_note' note_id=note.id %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="notename">Note Name</label>
+                <input value="{{ note.title }}" name="notename" type="text" class="form-control" id="notename" aria-describedby="notenameHelp">
+                <small id="notenameHelp" class="form-text text-muted">Up to 150 characters</small>
+            </div>
+            <div class="form-group">
+                <label for="notetext">Note text</label>
+                <input value="{{ note.text }}" name="notetext" type="text" class="form-control" id="notetext" aria-describedby="notetextHelp">
+                <small id="notetextHelp" class="form-text text-muted">Please add e text to Your Note. </small>
+            </div>
+            <div class="form-group">
+                <select value="{{ note.label.id }}" class="custom-select" name="notelabel">
+                  <option>Select Label for your Note</option>
+                    {% for label in labels %}
+                        <option {% if label.id == note.label.id %} selected {% endif %} value="{{ label.id }}">{{ label.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Edit your Note</button>
+        </form>
+    </div>
+
+{% endblock %}

@@ -77,3 +77,20 @@ def label_notes(request, label_id):
     return HttpResponse(template.render(context, request))
 
 
+def edit_note(request, note_id):
+    if request.method == "POST":
+        notename = request.POST['notename']
+        notetext = request.POST['notetext']
+        notelabel = request.POST['notelabel']
+        note = Note.objects.get(id=note_id)
+        note.title = notename
+        note.text = notetext
+        note.label_id = notelabel
+        note.save()
+        return redirect('index')
+    elif request.method == "GET":
+        template = loader.get_template('edit_note.html')
+        context = {'labels': Label.objects.filter(user=request.user), 'note': Note.objects.get(id=note_id)}
+        return HttpResponse(template.render(context, request))
+
+
