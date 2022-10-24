@@ -56,10 +56,13 @@ def create_note(request):
         if notelabel == 'null':
             notelabel = None
 
-        upload = request.FILES['upload']
-        fss = FileSystemStorage()
-        file = fss.save(upload.name, upload)
-        file_url = fss.url(file)
+        if "upload" in request.FILES:
+            upload = request.FILES['upload']
+            fss = FileSystemStorage()
+            file = fss.save(upload.name, upload)
+            file_url = fss.url(file)
+        else:
+            file_url = None
 
         # label = Label.objects.find(notelabel)
         Note.objects.create(title=notename, text=notetext, user=request.user, label_id=notelabel, image_url=file_url)
