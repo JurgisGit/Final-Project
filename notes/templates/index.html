@@ -22,6 +22,7 @@
       <th scope="col">Note</th>
       <th scope="col">Text</th>
       <th scope="col">Label</th>
+      <th scope="col">Image</th>
       <th scope="col"></th>
       <th scope="col"></th>
     </tr>
@@ -34,6 +35,11 @@
       <td>{{note.title}}</td>
       <td>{{note.text}}</td>
       <td>{{note.label.title}}</td>
+      <td style="width:250px">
+        {% if note.image_url is not None %}
+          <img src="{{ note.image_url }}" class="img-fluid">
+        {% endif %}
+      </td>
       <td> <a href="{% url 'edit_note' note_id=note.id %}" class="btn btn-info">Edit</a></td>
       <td> <a href="{% url 'delete_note' note_id=note.id %}" class="btn btn-danger">Delete</a></td>
     </tr>
