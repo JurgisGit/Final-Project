@@ -9,9 +9,10 @@ from django.contrib.auth.decorators import login_required
 
 
 def index(request):
+    search = request.GET.get('search', '')
     if request.user.is_authenticated:
         template = loader.get_template('index.html')
-        context = {'notes': Note.objects.filter(user=request.user)}
+        context = {'notes': Note.objects.filter(user=request.user, title__icontains=search), 'search_value':search}
         return HttpResponse(template.render(context, request))
     else:
         return redirect('login')

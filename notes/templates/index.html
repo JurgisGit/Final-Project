@@ -3,6 +3,15 @@
 {% block content %}
   <h1>Take a Note</h1>
 
+<form action={% url 'index' %} method="get">
+  <div class="input-group mb-3">
+    <input value="{{ search_value }}" type="text" name="search" class="form-control" placeholder="Search Your Notes" aria-label="Search Your Notes" aria-describedby="basic-addon2">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="submit">Search</button>
+    </div>
+  </div>
+</form>
+
 
 <a href="{% url 'create_note' %}" class="btn btn-success btn-lg btn-block add_button">Add a note</a>
 
