@@ -12,6 +12,7 @@ class Note(models.Model):
         null=True,
     )
     label = models.ForeignKey('Label', on_delete=models.SET_NULL, null=True)
+    image_url = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return self.title

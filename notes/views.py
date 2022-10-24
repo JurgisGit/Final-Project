@@ -1,3 +1,4 @@
+from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -12,7 +13,7 @@ def index(request):
     search = request.GET.get('search', '')
     if request.user.is_authenticated:
         template = loader.get_template('index.html')
-        context = {'notes': Note.objects.filter(user=request.user, title__icontains=search), 'search_value':search}
+        context = {'notes': Note.objects.filter(user=request.user, title__icontains=search), 'search_value': search}
         return HttpResponse(template.render(context, request))
     else:
         return redirect('login')
@@ -54,8 +55,14 @@ def create_note(request):
         notelabel = request.POST['notelabel']
         if notelabel == 'null':
             notelabel = None
+
+        upload = request.FILES['upload']
+        fss = FileSystemStorage()
+        file = fss.save(upload.name, upload)
+        file_url = fss.url(file)
+
         # label = Label.objects.find(notelabel)
-        Note.objects.create(title=notename, text=notetext, user=request.user, label_id=notelabel)
+        Note.objects.create(title=notename, text=notetext, user=request.user, label_id=notelabel, image_url=file_url)
         return redirect('index')
     elif request.method == "GET":
         template = loader.get_template('create_note.html')
@@ -103,5 +110,3 @@ def delete_note(request, note_id):
     note = Note.objects.get(id=note_id)
     note.delete()
     return redirect('index')
-
-
