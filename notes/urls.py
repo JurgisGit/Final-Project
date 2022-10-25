@@ -12,4 +12,5 @@ urlpatterns = [
     path('edit_note/<int:note_id>', views.edit_note, name='edit_note'),
     path('delete_note/<int:note_id>', views.delete_note, name='delete_note'),
     path('edit_label/<int:label_id>', views.edit_label, name='edit_label'),
+    path('delete_label/<int:label_id>', views.delete_label, name='delete_label'),
 ]

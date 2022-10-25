@@ -126,3 +126,8 @@ def delete_note(request, note_id):
     note = Note.objects.get(id=note_id)
     note.delete()
     return redirect('index')
+
+def delete_label(request, label_id):
+    label = Label.objects.get(id=label_id)
+    label.delete()
+    return redirect('label')
