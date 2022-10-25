@@ -109,6 +109,19 @@ def edit_note(request, note_id):
         return HttpResponse(template.render(context, request))
 
 
+def edit_label(request, label_id):
+    if request.method == "POST":
+        labeltitle = request.POST['labeltitle']
+        label = Label.objects.get(id=label_id)
+        label.title = labeltitle
+        label.save()
+        return redirect('label')
+    elif request.method == "GET":
+        template = loader.get_template('edit_label.html')
+        context = {'label': Label.objects.get(id=label_id)}
+        return HttpResponse(template.render(context, request))
+
+
 def delete_note(request, note_id):
     note = Note.objects.get(id=note_id)
     note.delete()

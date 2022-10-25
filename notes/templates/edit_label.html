@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container">
+        <h3>Edit a Label</h3><br/>
+        <form action="{% url 'edit_label' label_id=label.id %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="labeltitle">Label Name</label>
+                <input value="{{ label.title }}" name="labeltitle" type="text" class="form-control" id="labeltitle" aria-describedby="labelnameHelp">
+                <small id="labelnameHelp" class="form-text text-muted">Up to 200 characters</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Edit your Note</button>
+        </form>
+    </div>
+
+{% endblock %}
