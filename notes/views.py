@@ -73,6 +73,18 @@ def create_note(request):
         return HttpResponse(template.render(context, request))
 
 
+def create_label(request):
+    if request.method == "POST":
+        labeltitle = request.POST['labeltitle']
+        Label.objects.create(title=labeltitle, user=request.user)
+        return redirect('label')
+    elif request.method == "GET":
+        template = loader.get_template('create_label.html')
+        context = {}
+        return HttpResponse(template.render(context, request))
+
+
+
 def logout_user(request):
     logout(request)
     return redirect('index')

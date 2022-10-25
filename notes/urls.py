@@ -13,4 +13,5 @@ urlpatterns = [
     path('delete_note/<int:note_id>', views.delete_note, name='delete_note'),
     path('edit_label/<int:label_id>', views.edit_label, name='edit_label'),
     path('delete_label/<int:label_id>', views.delete_label, name='delete_label'),
+    path('create_label', views.create_label, name='create_label'),
 ]
