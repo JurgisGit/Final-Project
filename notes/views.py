@@ -48,6 +48,7 @@ def signup(request):
         return HttpResponse(template.render(context, request))
 
 
+@login_required
 def create_note(request):
     if request.method == "POST":
         notename = request.POST['notename']
@@ -73,6 +74,7 @@ def create_note(request):
         return HttpResponse(template.render(context, request))
 
 
+@login_required
 def create_label(request):
     if request.method == "POST":
         labeltitle = request.POST['labeltitle']
@@ -84,24 +86,27 @@ def create_label(request):
         return HttpResponse(template.render(context, request))
 
 
-
+@login_required
 def logout_user(request):
     logout(request)
     return redirect('index')
 
 
+@login_required
 def label(request):
     template = loader.get_template('labels.html')
     context = {'labels': Label.objects.filter(user=request.user)}
     return HttpResponse(template.render(context, request))
 
 
+@login_required
 def label_notes(request, label_id):
     template = loader.get_template('label_notes.html')
     context = {'notes': Note.objects.filter(label__id=label_id, user=request.user)}
     return HttpResponse(template.render(context, request))
 
 
+@login_required
 def edit_note(request, note_id):
     if request.method == "POST":
         notename = request.POST['notename']
@@ -121,6 +126,7 @@ def edit_note(request, note_id):
         return HttpResponse(template.render(context, request))
 
 
+@login_required
 def edit_label(request, label_id):
     if request.method == "POST":
         labeltitle = request.POST['labeltitle']
@@ -134,11 +140,13 @@ def edit_label(request, label_id):
         return HttpResponse(template.render(context, request))
 
 
+@login_required
 def delete_note(request, note_id):
     note = Note.objects.get(id=note_id)
     note.delete()
     return redirect('index')
 
+@login_required
 def delete_label(request, label_id):
     label = Label.objects.get(id=label_id)
     label.delete()
