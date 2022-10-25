@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Take a Note</h1>
+
+<form action={% url 'index' %} method="get">
+  <div class="input-group mb-3">
+    <input value="{{ search_value }}" type="text" name="search" class="form-control" placeholder="Search Your Notes" aria-label="Search Your Notes" aria-describedby="basic-addon2">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="submit">Search</button>
+    </div>
+  </div>
+</form>
+
+
+<a href="{% url 'create_note' %}" class="btn btn-success btn-lg btn-block add_button">Add a note</a>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Note</th>
+      <th scope="col">Text</th>
+      <th scope="col">Label</th>
+      <th scope="col">Image</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+
+  {% for note in notes %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{note.title}}</td>
+      <td>{{note.text}}</td>
+      <td><a href="/label_notes/{{ note.label.id }}">{{note.label.title}}</a></td>
+      <td style="width:250px">
+        {% if note.image_url is not None %}
+          <img src="{{ note.image_url }}" class="img-fluid">
+        {% endif %}
+      </td>
+      <td> <a href="{% url 'edit_note' note_id=note.id %}" class="btn btn-info">Edit</a></td>
+      <td> <a href="{% url 'delete_note' note_id=note.id %}" class="btn btn-danger">Delete</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% endblock %}
