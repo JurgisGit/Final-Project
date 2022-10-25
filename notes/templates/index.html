@@ -34,7 +34,7 @@
       <th scope="row">{{ forloop.counter }}</th>
       <td>{{note.title}}</td>
       <td>{{note.text}}</td>
-      <td>{{note.label.title}}</td>
+      <td><a href="/label_notes/{{ note.label.id }}">{{note.label.title}}</a></td>
       <td style="width:250px">
         {% if note.image_url is not None %}
           <img src="{{ note.image_url }}" class="img-fluid">
